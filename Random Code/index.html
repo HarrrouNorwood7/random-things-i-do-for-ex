@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff6b81);
+            color: white;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 100px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        button {
+            font-size: 20px;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: #ff69b4;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+        .enter-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .floating-items {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+        .item {
+            position: absolute;
+            font-size: 30px;
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        #message, #message2 {
+            display: none;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        #redirect-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 20px;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #redirect-btn:hover {
+            background-color: #e63900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>For My Ex ☠️</h1>
+        <button onclick="startChallenge()">Ito ba gusto mo?</button>
+        <br><br>
+        <button class="enter-btn" onclick="moveButton()" style="display: none;">Enter</button>
+        <p id="message">Pinahirapan pa kita kahit papano sa pagclick ng enter! 😂</p>
+        <p id="message2">Panoorin mo to pls let me be your first Chinese drama recommendation na mapapanood mo ❤️</p>
+        <button id="redirect-btn" onclick="redirectToDrama()">Watch Now 🎥</button>
+    </div>
+    <div class="floating-items"></div>
+
+    <script>
+        let clickCount = 0;
+
+        function startChallenge() {
+            document.querySelector('.enter-btn').style.display = 'inline-block';
+        }
+
+        function moveButton() {
+            const button = document.querySelector('.enter-btn');
+            if (clickCount < 2) {
+                const randomX = Math.random() * (window.innerWidth - 200);
+                const randomY = Math.random() * (window.innerHeight - 200);
+                button.style.position = 'absolute';
+                button.style.left = `${randomX}px`;
+                button.style.top = `${randomY}px`;
+                clickCount++;
+            } else {
+                button.style.display = 'none';
+                document.getElementById('message').style.display = 'block';
+                showFloatingItems();
+            }
+        }
+
+        function showFloatingItems() {
+            const floatingContainer = document.querySelector('.floating-items');
+            for (let i = 0; i < 20; i++) {
+                const item = document.createElement('div');
+                item.classList.add('item');
+                item.style.left = `${Math.random() * 100}vw`;
+                item.style.animationDuration = `${3 + Math.random() * 3}s`;
+                item.innerHTML = Math.random() > 0.5 ? '🌟' : '🌸';
+                floatingContainer.appendChild(item);
+                setTimeout(() => item.remove(), 5000);
+            }
+            setTimeout(showFinalMessage, 3000);
+        }
+
+        function showFinalMessage() {
+            document.getElementById('message2').style.display = 'block';
+            document.getElementById('redirect-btn').style.display = 'block';
+        }
+
+        function redirectToDrama() {
+            window.location.href = "https://kisskh.co/Drama/The-Best-Thing/Episode-1?id=9579&ep=175639&page=0&pageSize=100";
+        }
+    </script>
+</body>
+</html>
